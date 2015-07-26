@@ -44,7 +44,7 @@ dftest = cbind(test_labels, test_subject, test_data)
 # merge datasets
 df <- rbind(dftraining, dftest)
 
-# replace label codes with the label
+# replace label codes with the label (labels the data set with descriptive variable names)
 df = merge(labels, df, by.x="labelcode", by.y="labelcode")
 df <- df[,-1]
 
