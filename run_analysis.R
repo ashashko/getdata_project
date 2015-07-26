@@ -1,4 +1,4 @@
-# The code should be run as long as the Samsung data is in your working directory. 
+# The code should work as long as the Samsung data is in your working directory. 
 # Source of data for this project: 
 # https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
 # The output should be the tidy data set you submitted for part 1. 
@@ -11,8 +11,7 @@ library(reshape2)
 setwd("F:/Documents/R")
 
 # This R script does the following:
-
-# Process UCI HAR Dataset, producing a tidy dataset with the mean of all 
+# process UCI HAR Dataset, producing a tidy dataset with the mean of all 
 # -mean() and -std() variables, as well as a codebook with all column names.
 
 # Prerequisite: download and unpack the contents of "UCI HAR Dataset" 
@@ -23,10 +22,10 @@ labels <- read.table("activity_labels.txt", col.names=c("labelcode","label"))
 # import features
 features <- read.table("features.txt")
 
-# determine important features
+# determine important features (those containing -mean() or -std())
 wanted_feature_indices <- grep("mean\\(|std\\(", features[,2])
 
-# import training set, choose only important ones
+# import training set, choose only important items
 training_subject <- read.table("train/subject_train.txt", col.names = "subject")
 training_data <- read.table("train/X_train.txt", 
                             col.names = features[,2], check.names=FALSE)
@@ -34,7 +33,7 @@ training_data <- training_data[,wanted_feature_indices]
 training_labels <- read.table("train/y_train.txt", col.names = "labelcode")
 dftraining = cbind(training_labels, training_subject, training_data)
 
-# import test set, choose only important ones
+# import test set, choose only important items
 test_subject <- read.table("test/subject_test.txt", col.names = "subject")
 test_data <- read.table("test/X_test.txt",
                         col.names = features[,2], check.names=FALSE)
